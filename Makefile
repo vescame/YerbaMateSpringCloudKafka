@@ -1,7 +1,7 @@
 GRADLE=gradle
 ARGS=clean build
 
-JAVA=~/workspace/share/jdk-14.0.2/bin/java -jar
+JAVA=java -jar
 
 SRC_CHECKOUT_API=yerbamate.checkout
 SRC_PAYMENT_API=yerbamate.payment
