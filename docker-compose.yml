@@ -10,6 +10,15 @@ services:
     ports:
       - 5432:5432
 
+  database-payment:
+    image: postgres:latest
+    environment:
+      POSTGRES_PASSWORD: payment_db_password
+      POSTGRES_USER: payment_db_user
+      POSTGRES_DB: payment
+    ports:
+      - 5433:5432
+
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
     hostname: zookeeper

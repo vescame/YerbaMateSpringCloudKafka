@@ -7,6 +7,7 @@ import org.vescm.yerbamate.checkout.streaming.PaymentPaidSink;
 
 @Configuration
 @EnableBinding(value = {
-        CheckoutCreatedSource.class
+        CheckoutCreatedSource.class,
+        PaymentPaidSink.class
 })
 public class StreamingConfig { }

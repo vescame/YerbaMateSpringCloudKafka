@@ -9,8 +9,4 @@ pluginManagement {
     }
 }
 
-rootProject.name = 'yerbamate.microservices'
-
-include 'yerbamate.checkout'
-include 'yerbamate.payment'
-
+rootProject.name = 'yerbamate.payment'
