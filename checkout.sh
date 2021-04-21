@@ -36,19 +36,28 @@ stop() {
   docker-compose down
 }
 
-test-checkout() {
+test_checkout() {
   curl -X POST \
     -H "Content-Type: application/json" \
-    -d "@test.json" \
+    -d "@checkout-test.json" \
     http://localhost:8085/api/v1/checkout/
 }
 
-db() {
+checkout_db() {
   local tables='checkout_entity shipping_entity checkout_item_entity'
   for i in $tables
   do
     docker-compose exec database-checkout \
       /bin/bash -c "psql -Ucheckout_db_user checkout -c 'select * from $i;'"
+  done
+}
+
+payment_db() {
+  local tables='payment_entity'
+  for i in $tables
+  do
+    docker-compose exec database-payment \
+      /bin/bash -c "psql -Upayment_db_user payment -c 'select * from $i;'"
   done
 }
 
@@ -67,12 +76,13 @@ parse_command() {
     stop
     exit
     ;;
-  test-checkout)
-    test-checkout
+  test_checkout)
+    test_checkout
     exit
     ;;
   db)
-    db
+    checkout_db
+    payment_db
     exit
     ;;
   *)
