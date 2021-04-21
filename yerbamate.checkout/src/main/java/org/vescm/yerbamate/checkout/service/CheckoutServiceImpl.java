@@ -61,4 +61,18 @@ public class CheckoutServiceImpl implements CheckoutService {
 
         return Optional.of(entity);
     }
+
+    @Override
+    public Optional<CheckoutEntity> updateStatus(String checkoutCode, String paymentCode) {
+        CheckoutEntity.Status paymentStatus = paymentCode == null ?
+                CheckoutEntity.Status.REJECTED : CheckoutEntity.Status.APPROVED;
+
+        final CheckoutEntity checkoutEntity = checkoutRepository
+                .findByCode(checkoutCode)
+                .orElse(CheckoutEntity.builder().build());
+
+        checkoutEntity.setStatus(paymentStatus);
+
+        return Optional.of(checkoutRepository.save(checkoutEntity));
+    }
 }
