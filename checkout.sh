@@ -13,8 +13,8 @@ print_usage() {
       help                Get detailed help and usage
       start               Start services
       stop                Stop services
-      test-checkout       Make a POST request using checkout.json file
-      data                List checkout database tables (visualize result)
+      test                Make a POST request using checkout.json file
+      database            List checkout database tables (visualize result)
 
   Run '$BASENAME COMMAND --help' for more information on a command.
 EOF
@@ -44,6 +44,7 @@ test_checkout() {
 }
 
 checkout_db() {
+  echo 'Database Checkout'
   local tables='checkout_entity shipping_entity checkout_item_entity'
   for i in $tables
   do
@@ -53,11 +54,22 @@ checkout_db() {
 }
 
 payment_db() {
+  echo 'Database Payment'
   local tables='payment_entity'
   for i in $tables
   do
     docker-compose exec database-payment \
       /bin/bash -c "psql -Upayment_db_user payment -c 'select * from $i;'"
+  done
+}
+
+mailer_db() {
+  echo 'Database Mailer'
+  local tables='mail_entity'
+  for i in $tables
+  do
+    docker-compose exec database-mailer \
+      /bin/bash -c "psql -Umailer_db_user mailer -c 'select * from $i;'"
   done
 }
 
@@ -76,13 +88,14 @@ parse_command() {
     stop
     exit
     ;;
-  test_checkout)
+  test)
     test_checkout
     exit
     ;;
-  db)
+  database)
     checkout_db
     payment_db
+    mailer_db
     exit
     ;;
   *)
@@ -98,3 +111,4 @@ if [ -z "$1" ]; then
 else
   parse_command "$1"
 fi
+
