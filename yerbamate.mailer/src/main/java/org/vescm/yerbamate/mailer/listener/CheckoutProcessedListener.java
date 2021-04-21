@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.stereotype.Component;
-import org.vescm.yerbamate.mailer.event.CheckoutProcessedEvent;
+import org.vescm.yerbamate.checkout.event.CheckoutProcessedEvent;
 import org.vescm.yerbamate.mailer.service.MailService;
 import org.vescm.yerbamate.mailer.streaming.CheckoutProcessedSink;
 

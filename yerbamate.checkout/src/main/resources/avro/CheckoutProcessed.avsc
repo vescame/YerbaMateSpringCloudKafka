@@ -1,7 +1,7 @@
 {
   "type": "record",
   "name": "CheckoutProcessedEvent",
-  "namespace": "org.vescm.yerbamate.mailer.event",
+  "namespace": "org.vescm.yerbamate.checkout.event",
   "fields": [
     {
       "name": "checkoutCode",
